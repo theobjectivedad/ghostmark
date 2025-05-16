@@ -175,6 +175,7 @@ def highlight_invisibles(text: str) -> None:
                 result.append("\u00b7", style=derived_style)
             else:
                 result.append(f"[{validation}]", style=derived_style)
+
             if char == "\n":
                 result.append("\n", style=derived_style)
         else:
@@ -217,6 +218,7 @@ def highlight_invisibles(text: str) -> None:
         title="Identified Invisibles",
         border_style="gold3",
         padding=(1, 2),
+        expand=True,  # Ensure the panel uses the full width to avoid line trimming
     )
 
     stdout_console.print(combined_panel)

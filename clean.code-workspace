@@ -140,7 +140,7 @@
 					"request": "launch",
 					"module": "clean",
 					"args": [
-						"-i"
+						"-s"
 					],
 					"console": "integratedTerminal",
 				}
