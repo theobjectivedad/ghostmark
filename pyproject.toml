@@ -1,0 +1,75 @@
+[project]
+name = "clean"
+version = "0.1.0"
+description = "Simple text normalizer"
+authors = [{ name = "The Objective Dad", email = "theobjectivedad@gmail.com" }]
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10.12"
+dependencies = ["regex", "click", "colorama", "rich>=14.0.0"]
+
+[build-system]
+requires = ["hatchling>=1.22"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/clean"]
+
+[project.scripts]
+clean = "clean.__main__:main"
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "clean",
+    "mypy>=1.15.0",
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
+    "pytest-cov>=6.1.1",
+    "pytest-dotenv>=0.5.2",
+    "pytest-html>=4.1.1",
+    "pytest-watch>=4.2.0",
+    "ruff>=0.11.4",
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
+check_untyped_defs = true
+
+
+[tool.pytest.ini_options]
+env_override_existing_values = 1
+log_cli = true
+log_cli_level = "INFO"
+log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
+
+# Ruff configuration
+# https://docs.astral.sh/ruff/configuration/
+
+[tool.ruff]
+line-length = 80
+target-version = "py312"
+indent-width = 4
+
+# Rules: https://docs.astral.sh/ruff/rules/
+select = ["ALL"]
+ignore = ["PGH003", "D", "COM812", "TD", "EM101", "EM102", "TRY003", "E501"]
+
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+
+[tool.uv.sources]
+clean = { workspace = true }

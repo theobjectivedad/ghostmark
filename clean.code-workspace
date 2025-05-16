@@ -1,0 +1,168 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.formatOnSave": true,
+		"files.autoSave": "onFocusChange",
+		"problems.sortOrder": "position",
+		"problems.showCurrentInStatus": true,
+		"explorer.autoReveal": false,
+		"editor.minimap.enabled": false,
+		"editor.hover.enabled": true,
+		"editor.hover.delay": 2000,
+		"editor.hover.hidingDelay": 100,
+		"editor.rulers": [
+			{
+				"column": 80
+			}
+		],
+		// Github Copilot extension settings
+		"github.copilot.enable": {
+			"*": false,
+			"plaintext": false,
+			"markdown": true,
+			"scminput": false,
+			"python": true,
+			"yaml": true,
+			"makefile": true,
+			"dockerfile": true
+		},
+		// cSpell extension settings
+		"cSpell.caseSensitive": true,
+		"cSpell.spellCheckOnlyWorkspaceFiles": true,
+		"cSpell.logLevel": "Information",
+		"cSpell.customDictionaries": {
+			"project-words": {
+				"name": "project-words",
+				"path": "${workspaceRoot}/project-words.txt",
+				"description": "Words used in this project",
+				"addWords": true
+			},
+			"custom": true,
+		},
+		"cSpell.ignorePaths": [
+			"package-lock.json",
+			"node_modules",
+			"vscode-extension",
+			".git/{info,lfs,logs,refs,objects}/**",
+			".git/{index,*refs,*HEAD}",
+			".vscode",
+			".vscode-insiders",
+			"mcp-mosaic.code-workspace"
+		],
+		// Terminal and environment settings
+		"terminal.integrated.env.linux": {
+			"VIRTUAL_ENV": "${workspaceFolder}/.venv",
+			"WORKSPACE_DIR": "${workspaceFolder}",
+			"EDITOR": "vim",
+			"GIT_PAGER": "cat",
+			"GIT_EDITOR": "vim",
+		},
+		"terminal.integrated.env.windows": {
+			"VIRTUAL_ENV": "${workspaceFolder}/.venv",
+			"WORKSPACE_DIR": "${workspaceFolder}",
+			"EDITOR": "vim",
+			"GIT_PAGER": "cat",
+			"GIT_EDITOR": "vim",
+		},
+		"terminal.integrated.env.osx": {
+			"VIRTUAL_ENV": "${workspaceFolder}/.venv",
+			"WORKSPACE_DIR": "${workspaceFolder}",
+			"EDITOR": "vim",
+			"GIT_PAGER": "cat",
+			"GIT_EDITOR": "vim",
+		},
+		// Pytest configuration
+		"python.testing.pytestEnabled": true,
+		"python.testing.pytestArgs": [
+			"--import-mode=importlib",
+			"${workspaceFolder}/tests"
+		],
+		/*
+		Linting configuration
+
+		Basically we disable pylint and flake8 in favor of ruff to avoid
+		conflicting messages.
+		*/
+		"pylint.enabled": false,
+		"flake8.enabled": false,
+		"ruff.enable": true,
+		"ruff.organizeImports": true,
+		"ruff.showSyntaxErrors": true,
+		"ruff.fixAll": false,
+		"ruff.path": [
+			".venv/bin/ruff"
+		],
+		"ruff.configuration": "pyproject.toml",
+		// Python files
+		"[python]": {
+			"editor.defaultFormatter": "charliermarsh.ruff",
+			"editor.codeActionsOnSave": {
+				"source.fixAll.ruff": "always",
+				"source.organizeImports.ruff": "always",
+				"source.fixAll.markdownlint": "always",
+				"source.convertImportFormat": "never"
+			},
+		},
+		// JSON files
+		"json.validate.enable": true,
+		"json.format.keepLines": true,
+		// Peacock / color settings
+		"workbench.colorCustomizations": {
+			"activityBar.activeBackground": "#a1a186",
+			"activityBar.background": "#a1a186",
+			"activityBar.foreground": "#15202b",
+			"activityBar.inactiveForeground": "#15202b99",
+			"activityBarBadge.background": "#cfefef",
+			"activityBarBadge.foreground": "#15202b",
+			"commandCenter.border": "#15202b99",
+			"sash.hoverBorder": "#a1a186",
+			"statusBar.background": "#89896b",
+			"statusBar.foreground": "#15202b",
+			"statusBarItem.hoverBackground": "#6c6c55",
+			"statusBarItem.remoteBackground": "#89896b",
+			"statusBarItem.remoteForeground": "#15202b",
+			"titleBar.activeBackground": "#89896b",
+			"titleBar.activeForeground": "#15202b",
+			"titleBar.inactiveBackground": "#89896b99",
+			"titleBar.inactiveForeground": "#15202b99"
+		},
+		"peacock.remoteColor": "#89896b",
+		// Launch configurations
+		"launch": {
+			"configurations": [
+				{
+					"name": "Run with invisibles",
+					"type": "debugpy",
+					"request": "launch",
+					"module": "clean",
+					"args": [
+						"-i"
+					],
+					"console": "integratedTerminal",
+				}
+			],
+			"compounds": [ ]
+		},
+		"github.copilot.chat.agent.thinkingTool": true,
+	},
+	// Workspace extensions
+	"extensions": {
+		"recommendations": [
+			"charliermarsh.ruff",
+			"njpwerner.autodocstring",
+			"streetsidesoftware.code-spell-checker",
+			"irongeek.vscode-env",
+			"github.copilot",
+			"github.copilot-chat",
+			"codezombiech.gitignore",
+			"eamodio.gitlens",
+			"ms-vscode.makefile-tools",
+			"davidanson.vscode-markdownlint",
+			"ms-python.mypy-type-checker",
+		]
+	}
+}
