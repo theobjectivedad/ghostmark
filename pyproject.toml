@@ -1,27 +1,27 @@
 [project]
-name = "clean"
-version = "0.1.0"
+name = "ghostmark"
+version = "1.0.0"
 description = "Simple text normalizer"
 authors = [{ name = "The Objective Dad", email = "theobjectivedad@gmail.com" }]
 readme = "README.md"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.10.12"
-dependencies = ["regex", "click", "colorama", "rich>=14.0.0"]
+dependencies = ["click", "rich>=14.0.0"]
 
 [build-system]
 requires = ["hatchling>=1.22"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/clean"]
+packages = ["src/ghostmark"]
 
 [project.scripts]
-clean = "clean.__main__:main"
+ghost = "ghostmark.__main__:main"
 
 [dependency-groups]
 dev = [
     "black>=25.1.0",
-    "clean",
+    "ghostmark",
     "mypy>=1.15.0",
     "pre-commit>=4.2.0",
     "pytest>=8.3.5",
@@ -72,4 +72,4 @@ line-ending = "auto"
 docstring-code-format = true
 
 [tool.uv.sources]
-clean = { workspace = true }
+ghostmark = { workspace = true }

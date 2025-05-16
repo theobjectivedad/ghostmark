@@ -4,8 +4,8 @@ import click
 from rich.console import Console
 from rich.rule import Rule
 
-from clean import styles
-from clean.normalize import (
+from ghostmark import styles
+from ghostmark.normalize import (
     highlight_invisibles,
     markdown_lint,
     remap_unusual_characters,

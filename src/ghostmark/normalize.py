@@ -6,8 +6,8 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from clean import styles
-from clean.database import (
+from ghostmark import styles
+from ghostmark.database import (
     INVISIBLE_CHAR_MAP,
     TRANSLATION_MAP,
     WHITESPACE_MAP,
@@ -203,7 +203,7 @@ def highlight_invisibles(text: str) -> None:
     result_panel = Panel(
         Align.left(result),
         border_style=styles.SYSTEM_COLOR,
-        title="Highlighted Invisibles",
+        title="Revealed Invisibles",
         padding=(0, 1),
     )
     stdout_console.print(result_panel)

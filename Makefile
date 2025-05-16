@@ -10,7 +10,7 @@ SHELL:=/bin/bash
 MAKEFLAGS+=--no-print-directory
 
 .PHONY: default
-default: dev
+default: venv
 
 ###############################################################################
 # Global Variables
@@ -18,10 +18,8 @@ default: dev
 
 WORKSPACE_DIR:=$(CURDIR)
 SRC_DIR:=$(WORKSPACE_DIR)/src
-AGENTS_DIR:=$(WORKSPACE_DIR)/agents
 VENV_DIR:=$(WORKSPACE_DIR)/.venv
 VENV_PYTHON:=$(VENV_DIR)/bin/python
-SUBMODULES_DIR:=$(WORKSPACE_DIR)/submodules
 PYTHON_VERSION:=3.12
 
 ###############################################################################
@@ -44,7 +42,7 @@ venv:
 	fi
 	uv venv \
 		--python $(PYTHON_VERSION) \
-		--prompt "clean" \
+		--prompt "ghostmark" \
 		$(VENV_DIR)
 	uv add --python=$(VENV_PYTHON) --dev --editable .
 	echo "Virtual environment created at '$(VENV_DIR)'. Activate with: source $(VENV_DIR)/bin/activate"
