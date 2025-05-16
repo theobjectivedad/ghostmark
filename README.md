@@ -1,4 +1,6 @@
-# Invisible Text Cleaner
+# Ghostmark
+
+
 
 
 ## Setup
@@ -24,5 +26,5 @@ uv pip install --user --editable .
 Finally, create an alias for the script in the newly created virtual environment:
 
 ```shell
-alias clean=~/workspace/clean/.venv/bin/ghost
+alias ghost=~/workspace/ghostmark/.venv/bin/ghost
 ```
