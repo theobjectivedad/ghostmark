@@ -1,14 +1,17 @@
 import re
 
 from rich.align import Align
-from rich.columns import Columns
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
 from clean import styles
-from clean.database import INVISIBLE_CHAR_DATABASE, WHITESPACE_DATABASE
+from clean.database import (
+    INVISIBLE_CHAR_MAP,
+    TRANSLATION_MAP,
+    WHITESPACE_MAP,
+)
 
 
 def remove_invisibles(text: str) -> str:
@@ -26,7 +29,7 @@ def remove_invisibles(text: str) -> str:
             filtered_chars.append(char)
             continue
         # Remove if in INVISIBLE_CHAR_DATABASE or WHITESPACE_DATABASE
-        if char in INVISIBLE_CHAR_DATABASE or char in WHITESPACE_DATABASE:
+        if char in INVISIBLE_CHAR_MAP or char in WHITESPACE_MAP:
             continue
         filtered_chars.append(char)
     text = "".join(filtered_chars)
@@ -37,6 +40,7 @@ def remove_invisibles(text: str) -> str:
 
 def remove_markdown_formatting(
     text: str,
+    *,
     remove_headings: bool = False,
     remove_code_blocks: bool = True,
     remove_inline_code: bool = True,
@@ -124,25 +128,7 @@ def markdown_lint(text: str) -> str:
 
 
 def remap_unusual_characters(text: str) -> str:
-    translation = str.maketrans(
-        {
-            "\u00b2": "^2",  # Superscript 2 (²)
-            "\u00b3": "^3",  # Superscript 3 (³)
-            "\u2013": "-",  # En dash (–)
-            "\u2014": "-",  # Em dash (—)
-            "\u2015": "-",  # Horizontal bar (―)
-            "\u2018": "'",  # Left curly single quote (‘)
-            "\u2019": "'",  # Right curly single quote (’)
-            "\u201c": '"',  # Left curly double quote (“)
-            "\u201d": '"',  # Right curly double quote (”)
-            "\u2022": "*",  # Bullet (•)
-            "\u2026": "...",  # Ellipsis (…)
-            "\u2081": "_1",  # Subscript 1 (₁)
-            "\u2082": "_2",  # Subscript 2 (₂)
-            "\u2212": "-",  # Figure dash (‒)
-            "\u2605": "*",  # Star dingbat (★)
-        }
-    )
+    translation = str.maketrans(TRANSLATION_MAP)
 
     return text.translate(translation)
 
@@ -158,11 +144,11 @@ def highlight_invisibles(text: str) -> None:
 
     # Process each character
     for char in text:
-        validation: str | None = INVISIBLE_CHAR_DATABASE.get(char, None)
+        validation: str | None = INVISIBLE_CHAR_MAP.get(char, None)
         if validation is not None:
             derived_style = (
                 styles.WHITESPACE_STYLE
-                if char in WHITESPACE_DATABASE
+                if char in WHITESPACE_MAP
                 else styles.INVISIBLE_STYLE
             )
 
@@ -172,53 +158,62 @@ def highlight_invisibles(text: str) -> None:
                 text_stats[validation] = 1
 
             if char == " ":
+                # Add a dot for space
                 result.append("\u00b7", style=derived_style)
             else:
+                # Else pretty print the invisible character
                 result.append(f"[{validation}]", style=derived_style)
 
+            # Add real newlines after the invisible character
             if char == "\n":
                 result.append("\n", style=derived_style)
+        elif char in TRANSLATION_MAP:
+            if "TRANSLATABLE" in text_stats:
+                text_stats["TRANSLATABLE"] += 1
+            else:
+                text_stats["TRANSLATABLE"] = 1
+
+            result.append(char, style=styles.TRANSLATION_STYLE)
         else:
             result.append(char, style=styles.NORMAL_STYLE)
 
-    # Create the stats table
+    # Build the stats table
     stats_table = None
     if text_stats:
         stats_table = Table.grid(padding=(0, 1))
         stats_table.add_column("Character Type", style="white")
         stats_table.add_column("Count", style="bold white", justify="right")
-        for char_type, count in text_stats.items():
-            stats_table.add_row(char_type, str(count))
 
-    # Create a vertical layout: highlighted text on top, stats table below
-    panel_contents = []
-    panel_contents.append(
+        # Sort by count descending
+        for char_type, count in sorted(
+            text_stats.items(), key=lambda x: x[1], reverse=True
+        ):
+            if char_type in WHITESPACE_MAP.values():
+                stats_style = styles.WHITESPACE_STYLE
+            elif char_type in INVISIBLE_CHAR_MAP.values():
+                stats_style = styles.INVISIBLE_STYLE
+            elif char_type == "TRANSLATABLE":
+                stats_style = styles.TRANSLATION_STYLE
+            else:
+                stats_style = styles.NORMAL_STYLE
+
+            stats_table.add_row(char_type, str(count), style=stats_style)
+
+    # Print the highlighted text
+    result_panel = Panel(
         Align.left(result),
+        border_style=styles.SYSTEM_COLOR,
+        title="Highlighted Invisibles",
+        padding=(0, 1),
     )
+    stdout_console.print(result_panel)
+
+    # Print the stats table
     if stats_table:
-        panel_contents.append(
-            Panel(
-                stats_table,
-                title="Statistics",
-                border_style="grey37",
-                padding=(0, 1),
-            )
+        stats_panel = Panel(
+            stats_table,
+            title="Statistics",
+            border_style=styles.SYSTEM_COLOR,
+            padding=(0, 1),
         )
-
-    combined_panel = Panel(
-        Align.left(
-            Columns(
-                panel_contents,
-                expand=True,
-                equal=False,
-                align="left",
-                column_first=True,
-            )
-        ),
-        title="Identified Invisibles",
-        border_style="gold3",
-        padding=(1, 2),
-        expand=True,  # Ensure the panel uses the full width to avoid line trimming
-    )
-
-    stdout_console.print(combined_panel)
+        stdout_console.print(stats_panel)

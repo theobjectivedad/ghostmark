@@ -21,20 +21,74 @@ from clean.normalize import (
     is_flag=True,
     help="Highlight invisible/control characters instead of removing them.",
 )
-@click.option("--remove-headings/--keep-headings", default=False, help="Remove/keep markdown headings.")
-@click.option("--remove-code-blocks/--keep-code-blocks", default=True, help="Remove/keep markdown code blocks.")
-@click.option("--remove-inline-code/--keep-inline-code", default=True, help="Remove/keep markdown inline code.")
-@click.option("--remove-bold/--keep-bold", default=True, help="Remove/keep markdown bold formatting.")
-@click.option("--remove-italics/--keep-italics", default=True, help="Remove/keep markdown italics formatting.")
-@click.option("--remove-strikethrough/--keep-strikethrough", default=True, help="Remove/keep markdown strikethrough formatting.")
-@click.option("--remove-images/--keep-images", default=True, help="Remove/keep markdown images.")
-@click.option("--remove-links/--keep-links", default=True, help="Remove/keep markdown links.")
-@click.option("--remove-blockquotes/--keep-blockquotes", default=True, help="Remove/keep markdown blockquotes.")
-@click.option("--remove-unordered-lists/--keep-unordered-lists", default=False, help="Remove/keep markdown unordered lists.")
-@click.option("--remove-ordered-lists/--keep-ordered-lists", default=False, help="Remove/keep markdown ordered lists.")
-@click.option("--remove-horizontal-rules/--keep-horizontal-rules", default=True, help="Remove/keep markdown horizontal rules.")
-@click.option("--remove-tables/--keep-tables", default=True, help="Remove/keep markdown tables.")
-@click.option("--lint/--no-lint", default=True, help="Enable/disable markdown linting.")
+@click.option(
+    "--remove-headings/--keep-headings",
+    default=False,
+    help="Remove/keep markdown headings.",
+)
+@click.option(
+    "--remove-code-blocks/--keep-code-blocks",
+    default=True,
+    help="Remove/keep markdown code blocks.",
+)
+@click.option(
+    "--remove-inline-code/--keep-inline-code",
+    default=True,
+    help="Remove/keep markdown inline code.",
+)
+@click.option(
+    "--remove-bold/--keep-bold",
+    default=True,
+    help="Remove/keep markdown bold formatting.",
+)
+@click.option(
+    "--remove-italics/--keep-italics",
+    default=True,
+    help="Remove/keep markdown italics formatting.",
+)
+@click.option(
+    "--remove-strikethrough/--keep-strikethrough",
+    default=True,
+    help="Remove/keep markdown strikethrough formatting.",
+)
+@click.option(
+    "--remove-images/--keep-images",
+    default=True,
+    help="Remove/keep markdown images.",
+)
+@click.option(
+    "--remove-links/--keep-links",
+    default=True,
+    help="Remove/keep markdown links.",
+)
+@click.option(
+    "--remove-blockquotes/--keep-blockquotes",
+    default=True,
+    help="Remove/keep markdown blockquotes.",
+)
+@click.option(
+    "--remove-unordered-lists/--keep-unordered-lists",
+    default=False,
+    help="Remove/keep markdown unordered lists.",
+)
+@click.option(
+    "--remove-ordered-lists/--keep-ordered-lists",
+    default=False,
+    help="Remove/keep markdown ordered lists.",
+)
+@click.option(
+    "--remove-horizontal-rules/--keep-horizontal-rules",
+    default=True,
+    help="Remove/keep markdown horizontal rules.",
+)
+@click.option(
+    "--remove-tables/--keep-tables",
+    default=True,
+    help="Remove/keep markdown tables.",
+)
+@click.option(
+    "--lint/--no-lint", default=True, help="Enable/disable markdown linting."
+)
 def main(
     show_invisibles: bool = False,
     remove_headings: bool = False,
@@ -61,7 +115,7 @@ def main(
         style=styles.SYSTEM_STYLE,
     )
     input_text = sys.stdin.read()
-    stderr_console.print(Rule(style=styles.SYSTEM_STYLE))
+
     if show_invisibles:
         highlight_invisibles(input_text)
     else:
@@ -86,9 +140,9 @@ def main(
         if lint:
             output = markdown_lint(output)
 
+        stderr_console.print(Rule(style=styles.SYSTEM_STYLE))
         print(output)
-
-    stderr_console.print(Rule(style=styles.SYSTEM_STYLE))
+        stderr_console.print(Rule(style=styles.SYSTEM_STYLE))
 
 
 if __name__ == "__main__":

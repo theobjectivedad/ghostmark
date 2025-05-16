@@ -1,4 +1,4 @@
-WHITESPACE_DATABASE = {
+WHITESPACE_MAP = {
     "\u000a": "LINE FEED",
     "\u000b": "LINE TABULATION",
     "\u000d": "CARRIAGE RETURN",
@@ -6,7 +6,7 @@ WHITESPACE_DATABASE = {
 }
 
 # From https://invisible-characters.com/
-INVISIBLE_CHAR_DATABASE = {
+INVISIBLE_CHAR_MAP = {
     "\u0009": "CHARACTER TABULATION",
     "\u000a": "LINE FEED",
     "\u000b": "LINE TABULATION",
@@ -442,4 +442,22 @@ INVISIBLE_CHAR_DATABASE = {
     "\ue01ed": "VARIATION SELECTOR-254",
     "\ue01ee": "VARIATION SELECTOR-255",
     "\ue01ef": "VARIATION SELECTOR-256",
+}
+
+TRANSLATION_MAP = {
+    "\u00b2": "^2",  # Superscript 2 (²)
+    "\u00b3": "^3",  # Superscript 3 (³)
+    "\u2013": "-",  # En dash (–)
+    "\u2014": "-",  # Em dash (—)
+    "\u2015": "-",  # Horizontal bar (―)
+    "\u2018": "'",  # Left curly single quote (‘)
+    "\u2019": "'",  # Right curly single quote (’)
+    "\u201c": '"',  # Left curly double quote (“)
+    "\u201d": '"',  # Right curly double quote (”)
+    "\u2022": "*",  # Bullet (•)
+    "\u2026": "...",  # Ellipsis (…)
+    "\u2081": "_1",  # Subscript 1 (₁)
+    "\u2082": "_2",  # Subscript 2 (₂)
+    "\u2212": "-",  # Figure dash (‒)
+    "\u2605": "*",  # Star dingbat (★)
 }
