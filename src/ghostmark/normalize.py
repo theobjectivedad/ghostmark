@@ -72,8 +72,9 @@ def remove_markdown_formatting(
 
     # Remove italics (*text* or _text_)
     if remove_italics:
-        text = re.sub(r"\*(.*?)\*", r"\1", text)
-        text = re.sub(r"_(.*?)_", r"\1", text)
+        # Only match single * or _ that are not part of ** or __
+        text = re.sub(r"(?<!\*)\*(?!\*)(.*?)\*(?!\*)", r"\1", text)
+        text = re.sub(r"(?<!_)_(?!_)(.*?)_(?!_)", r"\1", text)
 
     # Remove strikethrough (~~text~~)
     if remove_strikethrough:

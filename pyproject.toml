@@ -1,12 +1,12 @@
 [project]
 name = "ghostmark"
-version = "1.0.0"
+version = "0.0.1"
 description = "Simple text normalizer"
 authors = [{ name = "The Objective Dad", email = "theobjectivedad@gmail.com" }]
 readme = "README.md"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.10.12"
-dependencies = ["click", "rich>=14.0.0"]
+dependencies = ["beautifulsoup4>=4.13.4", "click", "rich>=14.0.0"]
 
 [build-system]
 requires = ["hatchling>=1.22"]
