@@ -18,10 +18,16 @@ fi
 
 NEW_VERSION=$1
 
-# Validate semver format (MAJOR.MINOR.PATCH)
-if ! [[ $NEW_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-    echo "Error: Version must follow semantic versioning format: MAJOR.MINOR.PATCH"
-    echo "Example: 1.2.3"
+# Validate semver format (MAJOR.MINOR.PATCH) or version increment keywords
+if [[ $NEW_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    # Valid semver format
+    echo "Setting version to $NEW_VERSION"
+    elif [[ $NEW_VERSION =~ ^(major|minor|patch)$ ]]; then
+    echo "Incrementing $NEW_VERSION version"
+else
+    echo "Error: Version must be either:"
+    echo "  - Semantic version format: MAJOR.MINOR.PATCH (e.g., 1.2.3)"
+    echo "  - Version increment: major, minor, or patch"
     exit 1
 fi
 
