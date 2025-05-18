@@ -42,9 +42,8 @@ venv:
 	fi
 	uv venv \
 		--python $(PYTHON_VERSION) \
-		--prompt "ghostmark" \
+		--prompt "SplatLLM" \
 		$(VENV_DIR)
-	uv add --python=$(VENV_PYTHON) --dev --editable .
+	uv sync --python $(PYTHON_VERSION) --all-extras --all-packages
+	uv pip install --editable $(CURDIR)
 	echo "Virtual environment created at '$(VENV_DIR)'. Activate with: source $(VENV_DIR)/bin/activate"
-
-

@@ -4,8 +4,8 @@ import click
 from rich.console import Console
 from rich.rule import Rule
 
-from ghostmark import styles
-from ghostmark.normalize import (
+from splat_llm import styles
+from splat_llm.normalize import (
     highlight_invisibles,
     markdown_lint,
     remap_unusual_characters,

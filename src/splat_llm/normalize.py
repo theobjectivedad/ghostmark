@@ -6,8 +6,8 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from ghostmark import styles
-from ghostmark.database import (
+from splat_llm import styles
+from splat_llm.database import (
     INVISIBLE_CHAR_MAP,
     TRANSLATION_MAP,
     WHITESPACE_MAP,
