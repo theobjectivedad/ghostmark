@@ -32,7 +32,7 @@ build-backend = "hatchling.build"
 packages = ["src/splat_llm"]
 
 [tool.hatch.version]
-path = "src/splat_llm/__version__.py"
+path = "src/splat_llm/version.py"
 
 [project.scripts]
 splat = "splat_llm.__main__:main"
