@@ -37,9 +37,9 @@ hatch version $1 || { echo "Failed to update version with hatch"; exit 1; }
 NEW_VERSION=$(hatch version)
 echo "Updating to version $NEW_VERSION"
 
-# git add . || { echo "Failed to stage changes"; exit 1; }
-# git commit -m "Bump version to $NEW_VERSION" || { echo "Failed to commit changes"; exit 1; }
-# git tag v$NEW_VERSION || { echo "Failed to create tag"; exit 1; }
-# git push origin v$NEW_VERSION || { echo "Failed to push tag"; exit 1; }
+git add . || { echo "Failed to stage changes"; exit 1; }
+git commit -m "Bump version to $NEW_VERSION" || { echo "Failed to commit changes"; exit 1; }
+git tag v$NEW_VERSION || { echo "Failed to create tag"; exit 1; }
+git push origin v$NEW_VERSION || { echo "Failed to push tag"; exit 1; }
 
 echo "Successfully released version $NEW_VERSION"
