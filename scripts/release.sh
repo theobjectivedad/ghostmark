@@ -39,6 +39,7 @@ echo "Updating to version $NEW_VERSION"
 
 git add . || { echo "Failed to stage changes"; exit 1; }
 git commit -m "Bump version to $NEW_VERSION" || { echo "Failed to commit changes"; exit 1; }
+git push
 git tag v$NEW_VERSION || { echo "Failed to create tag"; exit 1; }
 git push origin v$NEW_VERSION || { echo "Failed to push tag"; exit 1; }
 
