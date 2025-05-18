@@ -16,14 +16,15 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-NEW_VERSION=$1
+# Make sure we pull the up
+
 
 # Validate semver format (MAJOR.MINOR.PATCH) or version increment keywords
-if [[ $NEW_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     # Valid semver format
-    echo "Setting version to $NEW_VERSION"
-    elif [[ $NEW_VERSION =~ ^(major|minor|patch)$ ]]; then
-    echo "Incrementing $NEW_VERSION version"
+    echo "Setting version to $1"
+    elif [[ $1 =~ ^(major|minor|patch)$ ]]; then
+    echo "Incrementing $1 version"
 else
     echo "Error: Version must be either:"
     echo "  - Semantic version format: MAJOR.MINOR.PATCH (e.g., 1.2.3)"
@@ -31,12 +32,13 @@ else
     exit 1
 fi
 
+NEW_VERSION=$(hatch version)
 echo "Updating to version $NEW_VERSION"
 hatch version $NEW_VERSION || { echo "Failed to update version with hatch"; exit 1; }
 
-git add . || { echo "Failed to stage changes"; exit 1; }
-git commit -m "Bump version to $NEW_VERSION" || { echo "Failed to commit changes"; exit 1; }
-git tag v$NEW_VERSION || { echo "Failed to create tag"; exit 1; }
-git push origin v$NEW_VERSION || { echo "Failed to push tag"; exit 1; }
+# git add . || { echo "Failed to stage changes"; exit 1; }
+# git commit -m "Bump version to $NEW_VERSION" || { echo "Failed to commit changes"; exit 1; }
+# git tag v$NEW_VERSION || { echo "Failed to create tag"; exit 1; }
+# git push origin v$NEW_VERSION || { echo "Failed to push tag"; exit 1; }
 
 echo "Successfully released version $NEW_VERSION"
