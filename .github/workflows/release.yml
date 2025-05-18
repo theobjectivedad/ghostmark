@@ -28,6 +28,9 @@ jobs:
         with:
           python-version-file: "pyproject.toml"
 
+      - name: Build
+        run: uv build
+
       # - name: Install the project
       #   run: uv sync --locked --all-extras --dev
 
