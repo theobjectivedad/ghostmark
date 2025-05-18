@@ -31,12 +31,18 @@ jobs:
       - name: Build
         run: uv build
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        # if: github.ref_type == 'tag'
         with:
-          name: release-dists
-          path: dist/
-          if-no-files-found: error
+          files: dist/*
+
+      # - name: "Upload artifacts"
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: release-dists
+      #     path: dist/
+      #     if-no-files-found: error
 
       - name: Publish package to PyPI
         env:
