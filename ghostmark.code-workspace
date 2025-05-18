@@ -163,6 +163,7 @@
 			"ms-vscode.makefile-tools",
 			"davidanson.vscode-markdownlint",
 			"ms-python.mypy-type-checker",
+			"github.vscode-github-actions",
 		]
 	}
 }

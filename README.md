@@ -12,7 +12,7 @@ GhostMark is a tool designed for post-formatting text from large language models
 
 Additionally GhostMark can be used to inspect text for the presence of invisible characters and other unusual formatting via the ``ghost --show-invisibles`` command:
 
-![GhostMark text analysis sample](images/ghostmark_dump.webp)
+![GhostMark text analysis sample](https://raw.githubusercontent.com/theobjectivedad/ghostmark/refs/heads/master/images/ghostmark_dump.webp)
 
 Coming soon will be an MCP version that will expose GhostMark as a callable tool for agent-driven post-formatting.
 

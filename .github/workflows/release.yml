@@ -38,7 +38,7 @@ jobs:
           path: dist/
           if-no-files-found: error
 
-      - name: Publish package to PyPI using uv
+      - name: Publish package to PyPI
         env:
           UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         run: uv publish
