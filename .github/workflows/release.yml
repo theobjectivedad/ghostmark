@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     env:
       UV_CACHE_DIR: /tmp/.uv-cache
@@ -31,32 +31,14 @@ jobs:
       - name: Build
         run: uv build
 
-      # - name: Install the project
-      #   run: uv sync --locked --all-extras --dev
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+          if-no-files-found: error
 
-      # - name: Install build
-      #   run: pip install build
-
-      # - name: Build package
-      #   run: python -m build
-
-      # - name: Upload distribution files
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: dist-files
-      #     path: dist/
-# publish:
-#   needs: build
-#   runs-on: ubuntu-latest
-#   environment: production
-#   steps:
-#     - name: Download distribution files
-#       uses: actions/download-artifact@v3
-#       with:
-#         name: dist-files
-#         path: dist/
-#     - name: Publish to PyPI
-#       uses: pypa/gh-action-pypi-publish@v1
-#       with:
-#         user: __token__
-#         password: ${{ secrets.PYPI_API_TOKEN }}
+      - name: Publish package to PyPI using uv
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: uv publish
