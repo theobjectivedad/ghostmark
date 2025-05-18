@@ -10,6 +10,10 @@ on:
   # Enable manual trigger for the workflow
   workflow_dispatch:
 
+# Needed to push release:
+permissions:
+  contents: write
+
 jobs:
   
   publish:
@@ -39,8 +43,6 @@ jobs:
         if: github.ref_type == 'tag'
         with:
           files: dist/*
-        permissions:
-          contents: write
 
       # - name: "Upload artifacts"
       #   uses: actions/upload-artifact@v4
