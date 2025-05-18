@@ -182,7 +182,7 @@ wheels = [
 
 [[package]]
 name = "ghostmark"
-version = "1.0.0"
+version = "0.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },

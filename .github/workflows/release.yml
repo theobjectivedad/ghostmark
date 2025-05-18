@@ -1,55 +1,47 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*"
+
+  # Enable manual trigger for the workflow
+  workflow_dispatch:
+
 jobs:
-  Explore-GitHub-Actions:
+  build:
     runs-on: ubuntu-latest
+    env:
+      UV_CACHE_DIR: /tmp/.uv-cache
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+      - name: Checkout code
         uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-# name: Publish to PyPI
 
-# on:
-#   push:
-#     tags:
-#       - "v*"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
-#   # Enable manual trigger for the workflow
-#   workflow_dispatch:
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+      # - name: Install the project
+      #   run: uv sync --locked --all-extras --dev
 
-#       - name: Set up Python
-#         uses: actions/setup-python@v4
-#         with:
-#           python-version: "3.10"
+      # - name: Install build
+      #   run: pip install build
 
-#       - name: Install build
-#         run: pip install build
+      # - name: Build package
+      #   run: python -m build
 
-#       - name: Build package
-#         run: python -m build
-
-#       - name: Upload distribution files
-#         uses: actions/upload-artifact@v3
-#         with:
-#           name: dist-files
-#           path: dist/
-
+      # - name: Upload distribution files
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dist-files
+      #     path: dist/
 # publish:
 #   needs: build
 #   runs-on: ubuntu-latest
