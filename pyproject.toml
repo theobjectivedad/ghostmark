@@ -35,7 +35,7 @@ packages = ["src/splat_llm"]
 path = "src/splat_llm/version.py"
 
 [project.scripts]
-splat = "splat_llm.__main__:main"
+splatllm = "splat_llm.__main__:main"
 
 [dependency-groups]
 dev = [

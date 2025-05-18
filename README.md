@@ -3,18 +3,22 @@
 SplatLLM is a tool designed for post-formatting text from large language models (LLMs). Broadly this involves:
 
 * Removal of [invisible characters](https://invisible-characters.com/) that can be used for watermarking and/or hiding information in plain text.
-* Remapping of unusual characters typically produced my LLMs but not typically used by human writers, for example En/Em dashes and horizontal bars are be remapped to a single hyphen.
+* Remapping of unusual characters typically produced my LLMs but not typically used by human writers, for example Unicode dash punctuation commonly output by LLMs are be remapped to an ASCII hyphen.
 * Removal of certain markdown formatting characteristically used by LLMs.
 
-Additionally SplatLLM can be used to inspect text for the presence of invisible characters and other unusual formatting via the ``splat --show-invisibles`` command:
+Additionally SplatLLM can be used to inspect text for the presence of invisible characters and other unusual formatting via the ``splat --show-invisibles`` / ``splat -s`` command:
 
 ![SplatLLM text analysis sample](https://raw.githubusercontent.com/theobjectivedad/splat-llm/refs/heads/master/images/splat_llm_dump.webp)
 
-Coming soon will be an MCP version that will expose SplatLLM as a callable tool for agent-driven post-formatting.
+*Coming soon will be an MCP version that will expose SplatLLM as a callable tool for agent-driven post-formatting.*
 
-## Setup
+## Quickstart
 
-Ahead of getting this project up and running you can run locally via the commands below.
+```shell
+uvx splatllm
+```
+
+## Development Setup
 
 First, clone this repository:
 
@@ -28,25 +32,19 @@ Change directory to the cloned repository:
 cd splat-llm
 ```
 
-Next, create a virtual environment. Note that ``uv`` will be installed if it isn't found in the environment:
+Next, setup your local virtual environment. Note that [uv](https://github.com/astral-sh/uv) will be installed if it isn't found in the environment:
 
 ```shell
 make venv
 ```
 
-Now install into the virtual environment:
-
-```shell
-uv pip install --user --editable .
-```
-
-Finally, create an alias for the script in the newly created virtual environment, this can be in ``~/.bashrc``, ``~/.zshrc``, etc. depending on your shell:
+Finally, create an alias for the script in the newly created virtual environment in your shell resource file, ex: ``~/.bashrc``, ``~/.zshrc``, etc.:
 
 ```shell
 alias splat=PATH_TO_SPLAT_LLM/.venv/bin/splat
 ```
 
-You can now use SplatLLM via the CLI:
+You can now use the ``splat`` command via the CLI (note that you may need to re-read your shell rc file for the alias to be recognized):
 
 ```shell
 splat 
